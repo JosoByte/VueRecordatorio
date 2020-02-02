@@ -1,0 +1,64 @@
+#borrar {
+	width:30px; 
+	height:30px; 
+	
+}
+#circulo {
+	width:30px; 
+	height:30px; 
+	
+}
+#encabezado{
+    border-bottom: 0.5px solid #797979;
+    margin-bottom: 10px;
+}
+#pie {
+    position:relative;
+    text-align: center;
+    margin-top: 6em;
+   
+
+}
+.recorNotes{
+  background-color: black;
+  padding: 1em;
+}
+
+body {
+  color:white;
+  background-color:#393939;
+  padding:100px;
+}
+input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border-radius: 4px;
+  border: 2px solid white;
+}
+
+a {
+  color:orange;
+}
+ul {
+    list-style:none;
+}
+
+button{
+   background-color:#27252e;
+     color:white;
+    border: none;
+    text-decoration: none;
+}
+
+li {
+  border-bottom: 0.5px solid #797979;
+}
+
+.list-enter-active{
+  transition: all 1s;
+}
+.list-enter{
+  opacity: 0.1;
+  transform: translateX(40px);
+}
