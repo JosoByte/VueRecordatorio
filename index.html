@@ -2,56 +2,192 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=2.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-	<link rel="stylesheet" href="./css/bootstrap.css">
-	<link rel="stylesheet" href="./js/bootstrap.js">
-    <script src="./main.js"></script>
-	<link rel="stylesheet" type="text/css" href="./main.css">
-	<script type="text/javascript" src="./js/lodash.js"></script>
-	<script src="./js/moment.min.js"></script>
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/mainPage.css">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.css">
+    <script src="./js/mainPage.js"></script> 
+    <script src="./js/bootstrap.js"></script>
+    <title>Olimpiadas 2020</title>
 </head>
 <body>
-    <hr>
-    	<h1>Proyecto VUE - José Miguel Sánchez</h1>
-	    <div id="app">
-	    		<div id="recorBox">
-			     	<form v-on:submit.prevent="nuevaTarea">
-			        	<input v-model="nueva" placeholder="¿Que quieres recordar?" id="inputNota">
-			  		</form>
-			  	</div>
-			<hr>
-			<p>tienes {{completadas}} tareas pendientes de  {{notas.length}} <button type="button" v-on:click="borrarCompletada">X</button> Borrar tareas completadas</p>
-			<hr>
-			<transition-group  name="list" tag="ul" id="tareas">
-				<li v-for="nota in ordenados" :key="nota.pos"> 
-				<div class="recorNotes">
-					<h1  v-if="nota.completada==true" style="color:#24EC1E; text-decoration:line-through;"><img  id=circulo src="check-verde.png" v-on:click="completar(nota.pos)"/>{{ nota.tarea }}  <img id="borrar" src="cierra.png" v-on:click="borrar(nota.pos)"/></h1>
-					<h1 v-else ><img id=circulo src="circulo.png" v-on:click="completar(nota.pos)"/>{{ nota.tarea }}  <img id="borrar" src="cierra.png" v-on:click="borrar(nota.pos)"/></h1> 
-				   
-					<p> Prioridad:
-					<template v-if="nota.prioridad==1">
-						<button style="background-color:#16bce8; ">Low </button>
-						<button v-on:click="cambiarPrioridad(2,nota.pos)">Normal</button>
-						<button v-on:click="cambiarPrioridad(3,nota.pos)">Hight ^</button>
-					</template>
-					  <template v-if="nota.prioridad==2">
-						<button v-on:click="cambiarPrioridad(1,nota.pos)">Low</button>
-						<button style="background-color:#3e1ee2">Normal</button>
-						<button v-on:click="cambiarPrioridad('3',nota.pos)">Hight ^</button>
-					</template>
-					  <template v-if="nota.prioridad==3">
-						<button v-on:click="cambiarPrioridad(1,nota.pos)">Low</button>
-						<button v-on:click="cambiarPrioridad(2,nota.pos)">Normal</button>
-						<button style="background-color:red; ">Hight ^</button>
-					</template>
-					 Added {{fechacomputada(nota)}}
-					</p>
-					</li>
-					</transition-group>
-				</div>
-		</div>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <img src="./img/aros.svg" alt="" srcset="" height="50px" width="100px">
+        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0 navItems">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="./vue/index.html">Vue Recordatorio<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Nosotros</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownId">
+                        <a class="dropdown-item" href="#">Action 1</a>
+                        <a class="dropdown-item" href="#">Action 2</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contacto <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <a name="" id="" class="btn btn-primary" href="#" role="button" data-toggle="modal" data-target="#myLogin">Login</a>
+                <a name="" id="" class="btn btn-primary" href="#" role="button" data-toggle="modal" data-target="#myRegistro">Registro</a>
+
+                <!-- Modal login -->
+                <div class="modal fade" id="myLogin" role="dialog">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header text-center">
+                          Sign in
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <form>
+                        <div class="modal-body mx-3">
+                          <div class="md-form mb-5">
+                            Email<br>
+                            <input type="email" id="defaultForm-email" class="form-control validate" required>
+                            <label data-error="wrong" data-success="right" for="defaultForm-email"></label>
+                          </div>
+                  
+                          <div class="md-form mb-4">
+                            Contraseña<br>
+                            <input type="password" id="defaultForm-pass" class="form-control validate" required>
+                            <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
+                          </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                          <input class="btn btn-default" type="submit" value="login"></button>
+                        </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>    
+                </div>
+                <!-- Modal registro -->
+                <div class="modal fade" id="myRegistro" role="dialog">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header text-center">
+                          Registro
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <form>
+                        <div class="modal-body mx-4">
+                          <div class="md-form mb-4">
+                            Email
+                            <input type="email" id="defaultForm-email" class="form-control validate" requiered>
+                            <label data-error="wrong" data-success="right" for="defaultForm-email"></label>
+                          </div>
+                          <div class="md-form mb-4">
+                            Contraseña
+                            <input type="password" id="defaultForm-pass" class="form-control validate" requiered>
+                            <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
+                          </div>
+                          <div class="md-form mb-4">
+                            Repetir Contraseña
+                            <input type="password" id="defaultForm-pass" class="form-control validate" requiered>
+                            <label data-error="wrong" data-success="right" for="defaultForm-pass"></label>
+                          </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <input class="btn btn-default" type="submit" value="registrarse"></button>
+                        </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>    
+                </div>
+            </form>
+        </div>
+    </nav>
+    <img src="./img/hero.jpeg" alt="Smiley face" height="700em" width="100%"> 
+        <div class="hero-text">
+          <h1>明日発見</h1>
+          <p>Descubre el mañana</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="divider">
+                <br>
+            </div>
+          <div class="col-md-4">
+            <h2>Atena 1896</h2>
+            Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum 
+          </div>
+
+          <div class="col-md-3">
+            <img src="./img/atenas1896.jpeg" alt="Smiley face"  width="100%" height="110%">
+          </div>
+          <div class="divider">
+              <br>
+          </div>
+          <div class="col-md-4">
+            <h1> Grandes atletas de la historia</h1>
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-secondary"><a href="#">Wiston Johnny</a></li>
+                <li class="list-group-item list-group-item-light"><a href="#">Johnsonn Maria</a></li>
+                <li class="list-group-item list-group-item-secondary"><a href="#">Wayne Devine</a></li>
+                <li class="list-group-item list-group-item-light"><a href="#">Usain Bolt</a></li>
+                <li class="list-group-item list-group-item-secondary"><a href="#">Simone Biles</a></li>
+                <li class="list-group-item list-group-item-light"><a href="#">Nadia comaneci</a></li>
+              </ul>
+          </div>
+        </div>
+      </div>
+    <div class="container">
+        <div class="row">
+            
+          <div class="col-md-3">
+            <img src="./img/paris1900.jpeg" alt="Smiley face"  width="100%" height="110%">
+          </div>
+          <br class="divider">
+          <div class="col-md-4">
+            <div class="divider">
+                <br>
+            </div>
+            <h2>Paris1900</h2>
+            Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum  Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum 
+          </div>
+          <br class="divider">
+          <div class="col-md-4">
+    
+          </div>
+        </div>
+      </div>
+<footer class="page-footer font-small blue footSocial bg-secondary">
+    <div class="container-fluid text-center text-md-left bg-secondary">
+      <div class="row">
+        <br class="divider">
+        <div class="col-md-6 mt-md-0 mt-3">
+          <p>@Copyright Jose Miguel Sanchez Jimenez</p>
+  
+        </div>
+        <hr class="clearfix w-100 d-md-none pb-2">
+        <br class="divider">
+        <div class="col-md-3 mb-md-0 mb-3">
+        </div>
+        <div class="col-md-3 mb-md-0 mb-3">
+            <i class="fa fa-facebook-official" style="font-size:24px"></i>
+            <i class="fa fa fa-twitter" style="font-size:24px"></i>
+            <i class="fa fa-github" style="font-size:24px"></i>
+            <i class="fa fa-youtube" style="font-size:24px"></i>
+        </div>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>

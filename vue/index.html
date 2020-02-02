@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<link rel="stylesheet" href="./css/bootstrap.css">
+	<link rel="stylesheet" href="./js/bootstrap.js">
+    <script src="./main.js"></script>
+	<link rel="stylesheet" type="text/css" href="./main.css">
+	<script type="text/javascript" src="./js/lodash.js"></script>
+	<script src="./js/moment.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <hr>
+    	<h1>Proyecto VUE - José Miguel Sánchez</h1>
+	    <div id="app">
+	    		<div id="recorBox">
+			     	<form v-on:submit.prevent="nuevaTarea">
+			        	<input v-model="nueva" v-on:keyup.enter="nuevaTarea" placeholder="¿Que quieres recordar?" id="inputNota">
+			  		</form>
+			  	</div>
+			<hr>
+			<p>tienes {{completadas}} tareas pendientes de  {{notas.length}} <button type="button" v-on:click="borrarCompletada">X</button> Borrar tareas completadas</p>
+			<hr>
+			<transition-group  name="list" tag="ul" id="tareas">
+				<li v-for="nota in ordenados" :key="nota.pos"> 
+				<div class="recorNotes">
+					<h1  v-if="nota.completada==true" style="color:#24EC1E; text-decoration:line-through;"><img  id=circulo src="check-verde.png" v-on:click="completar(nota.pos)"/>{{ nota.tarea }}  <img id="borrar" src="cierra.png" v-on:click="borrar(nota.pos)"/></h1>
+					<h1 v-else ><img id=circulo src="circulo.png" v-on:click="completar(nota.pos)"/>{{ nota.tarea }}  <img id="borrar" src="cierra.png" v-on:click="borrar(nota.pos)"/></h1> 
+				   
+					<p> Prioridad:
+					<template v-if="nota.prioridad==1">
+						<button style="background-color:#16bce8; ">Low </button>
+						<button v-on:click="cambiarPrioridad(2,nota.pos)">Normal</button>
+						<button v-on:click="cambiarPrioridad(3,nota.pos)">Hight ^</button>
+					</template>
+					  <template v-if="nota.prioridad==2">
+						<button v-on:click="cambiarPrioridad(1,nota.pos)">Low</button>
+						<button style="background-color:#3e1ee2">Normal</button>
+						<button v-on:click="cambiarPrioridad('3',nota.pos)">Hight ^</button>
+					</template>
+					  <template v-if="nota.prioridad==3">
+						<button v-on:click="cambiarPrioridad(1,nota.pos)">Low</button>
+						<button v-on:click="cambiarPrioridad(2,nota.pos)">Normal</button>
+						<button style="background-color:red; ">Hight ^</button>
+					</template>
+					 Added {{fechacomputada(nota)}}
+					</p>
+					</li>
+					</transition-group>
+				</div>
+		</div>
+</body>
+</html>

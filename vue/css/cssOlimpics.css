@@ -1,0 +1,25 @@
+.navbarIcon{
+	display: block;
+  	margin-left: auto;
+  	margin-right: auto;
+  	width: 10%;
+}
+video {
+	width: 100%;
+	height: auto;
+	padding-top: 3em;
+  }
+img {
+	width: 100%;
+	height: auto;
+	padding-top: 1em;
+	padding-bottom: 1em;
+  }
+.divider{
+	display:none;
+}
+@media (max-width: 600px) {
+	.divider{
+		display:initial;
+	}
+}
