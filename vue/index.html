@@ -29,7 +29,7 @@
 				<li v-for="nota in ordenados" :key="nota.pos"> 
 				<div class="recorNotes">
 					<h1  v-if="nota.completada==true" style="color:#24EC1E; text-decoration:line-through;"><img  id=circulo src="../check-verde.png" v-on:click="completar(nota.pos)"/>{{ nota.tarea }}  <img id="borrar" src="cierra.png" v-on:click="borrar(nota.pos)"/></h1>
-					<h1 v-else ><img id=circulo src="circulo.png" v-on:click="completar(nota.pos)"/>{{ nota.tarea }}  <img id="borrar" src="../cierra.png" v-on:click="borrar(nota.pos)"/></h1> 
+					<h1 v-else ><img id=circulo src="../circulo.png" v-on:click="completar(nota.pos)"/>{{ nota.tarea }}  <img id="borrar" src="../cierra.png" v-on:click="borrar(nota.pos)"/></h1> 
 				   
 					<p> Prioridad:
 					<template v-if="nota.prioridad==1">
